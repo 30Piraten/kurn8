@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod 
+metadata: 
+  name: test-volume
+spec: 
+  volumes:
+    - name: "pod-data"
+      hostPath:
+        path: "var/lib/pod"
+  containers:
+    - image: gcr.io/kuar-demo/kuard-amd64:blue
+      name: test-volume
+      volumeMounts:
+        - mountPath: "/data"
+          name: "pod-data"
+      resources:
+        limits:
+          cpu: "500m"
+          memory: "128Mi"
+      ports:
+      - containerPort: 5700
+        name: http 
+        protocol: TCP
